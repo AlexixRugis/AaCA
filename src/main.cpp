@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "graph.h"
-
+#include "dsu.h"
 
 
 int main() {
