@@ -4,9 +4,9 @@
 #include <numeric>
 #include <stdexcept>
 
-class DSU {
+class Dsu {
 public:
-    DSU(size_t verticesCount) : mVerticesCount(verticesCount) {
+    Dsu(size_t verticesCount) : mVerticesCount(verticesCount) {
         if (verticesCount == 0) {
             throw std::invalid_argument("vertices count must be positive.");
         }
