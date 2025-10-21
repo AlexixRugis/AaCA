@@ -16,7 +16,7 @@ public:
 
     void run(const Graph& g) {
         for (const auto& edge : g) {
-            mDsu.merge(edge.first, edge.second);
+            mDsu.merge(mDsu.get(edge.first), mDsu.get(edge.second));
         }
     }
 
