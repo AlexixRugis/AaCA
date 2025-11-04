@@ -2,6 +2,7 @@
 #include <fstream>
 
 #include "graph.h"
+#include "graph_generator.h"
 #include "dsu.h"
 #include "naive_algorithm.h"
 #include "ram_algorithm.h"
@@ -20,22 +21,25 @@ int main() {
     int n, m;
     ifstr >> n >> m;
 
-    Graph g(n);
+    Graph g = generateGraph(n, m);
 
-    for (int i = 0; i < m; i++) {
-        int x, y;
-        ifstr >> x >> y;
-        g.addEdge(x, y);
-    }
-
-    Runner<NaiveAlgorithm, RunnerFeatures::SHOW_ANS | RunnerFeatures::SHOW_TIME> runnerNaive;
-    Runner<RamAlgorithm, RunnerFeatures::SHOW_ANS | RunnerFeatures::SHOW_TIME> runnerRam;
+    Runner<NaiveAlgorithm, RunnerFeatures::SHOW_TIME> runnerNaive;
+    Runner<RamAlgorithm, RunnerFeatures::SHOW_TIME> runnerRam;
 
     std::ofstream ostrNaive("output_naive.txt");
     std::ofstream ostrRam("output_ram.txt");
 
+    std::cout << "Running Naive Algorithm...\n";
     runnerNaive.run(g, ostrNaive);
+    std::cout << "Running Ram Algorithm...\n";
     runnerRam.run(g, ostrRam);
+
+    if (n <= 10) {
+        for (auto e : g) {
+            ostrNaive << e.first << ' ' << e.second << '\n';
+            ostrRam << e.first << ' ' << e.second << '\n';
+        }
+    }
 
     ostrNaive.close();
     ostrRam.close();

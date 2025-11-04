@@ -15,12 +15,17 @@ endif()
 include_directories(${CMAKE_SOURCE_DIR}/include)
 
 # Собираем все .cpp файлы из src/
-file(GLOB_RECURSE SRC_FILES ${CMAKE_SOURCE_DIR}/src/*.cpp)
+file(GLOB_RECURSE SRC_FILES ${CMAKE_SOURCE_DIR}/src/common/*.cpp)
 
-# Создаем исполняемый файл
-add_executable(${PROJECT_NAME} ${SRC_FILES})
+# Создаем исполняемые файлы
+add_executable(${PROJECT_NAME}_play ${CMAKE_SOURCE_DIR}/src/main_play.cpp ${SRC_FILES})
+add_executable(${PROJECT_NAME}_tests ${CMAKE_SOURCE_DIR}/src/main_tests.cpp ${SRC_FILES})
 
 # (необязательно) Указываем папку для сборки бинарников
-set_target_properties(${PROJECT_NAME} PROPERTIES
+set_target_properties(${PROJECT_NAME}_play PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/
+)
+
+set_target_properties(${PROJECT_NAME}_tests PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
 )
