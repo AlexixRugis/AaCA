@@ -14,10 +14,22 @@ public:
         }
     }
 
+    void reset() {
+        mDsu.reset();
+    }
+
+    void addEdge(const Graph::Edge& e) {
+        mDsu.merge(mDsu.get(e.first), mDsu.get(e.second));
+    }
+
     void run(const Graph& g) {
         for (const auto& edge : g) {
-            mDsu.merge(mDsu.get(edge.first), mDsu.get(edge.second));
+            addEdge(edge);
         }
+    }
+
+    size_t getCompCount() const {
+        return mDsu.getComponentsCount();
     }
 
     std::vector<size_t> getAns() const {

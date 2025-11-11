@@ -12,7 +12,11 @@ public:
             throw std::invalid_argument("vertices count must be positive.");
         }
 
-        mComponents.resize(verticesCount);
+        reset();
+    }
+
+    void reset() {
+        mComponents.resize(mVerticesCount);
         std::iota(mComponents.begin(), mComponents.end(), 0);
     }
 

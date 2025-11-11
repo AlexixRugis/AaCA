@@ -20,6 +20,7 @@ file(GLOB_RECURSE SRC_FILES ${CMAKE_SOURCE_DIR}/src/common/*.cpp)
 # Создаем исполняемые файлы
 add_executable(${PROJECT_NAME}_play ${CMAKE_SOURCE_DIR}/src/main_play.cpp ${SRC_FILES})
 add_executable(${PROJECT_NAME}_tests ${CMAKE_SOURCE_DIR}/src/main_tests.cpp ${SRC_FILES})
+add_executable(${PROJECT_NAME}_one_comp ${CMAKE_SOURCE_DIR}/src/main_tests_one_comp.cpp ${SRC_FILES})
 
 # (необязательно) Указываем папку для сборки бинарников
 set_target_properties(${PROJECT_NAME}_play PROPERTIES
@@ -27,5 +28,9 @@ set_target_properties(${PROJECT_NAME}_play PROPERTIES
 )
 
 set_target_properties(${PROJECT_NAME}_tests PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+)
+
+set_target_properties(${PROJECT_NAME}_one_comp PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
 )

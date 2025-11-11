@@ -20,7 +20,7 @@ constexpr RunnerFeatures operator&(RunnerFeatures a, RunnerFeatures b) {
 }
 
 template<typename T, RunnerFeatures FeatureMask = RunnerFeatures::SHOW_ANS | RunnerFeatures::SHOW_TIME |
-RunnerFeatures::VERBOSE>
+RunnerFeatures::VERBOSE, int RunCount = 1>
 class Runner {
 public:
     void run(const Graph& g, std::ostream& ostr) {
@@ -31,17 +31,26 @@ public:
                 << "\nEdges: " << g.edgesCount() << std::endl;
         }
 
-        const auto start{std::chrono::steady_clock::now()};
-        algoRunner.run(g);
-        const auto finish{std::chrono::steady_clock::now()};
-        const std::chrono::duration<double> elapsed_seconds{finish - start};
+        double bestTime = std::numeric_limits<double>::max();
+
+        for (int i = 0; i < RunCount; i++) {
+            algoRunner.reset();
+            
+            const auto start{std::chrono::steady_clock::now()};
+            algoRunner.run(g);
+            const auto finish{std::chrono::steady_clock::now()};
+            const std::chrono::duration<double> elapsedSeconds{finish - start};
+
+            bestTime = std::min(bestTime, elapsedSeconds.count());
+        }
+
 
         if (static_cast<size_t>(FeatureMask & RunnerFeatures::SHOW_TIME)) {
             if (static_cast<size_t>(FeatureMask & RunnerFeatures::VERBOSE)) {
-                ostr << "Run finished. Elapsed time: " << elapsed_seconds.count() << std::endl;
+                ostr << "Run finished. Elapsed time: " << bestTime << std::endl;
             }
             else {
-                ostr << elapsed_seconds.count() << std::endl;
+                ostr << bestTime << std::endl;
             }
         }
 

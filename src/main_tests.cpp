@@ -23,8 +23,8 @@ int main() {
 
     Graph g = generateGraph(n, m);
 
-    Runner<NaiveAlgorithm, RunnerFeatures::SHOW_TIME> runnerNaive;
-    Runner<RamAlgorithm, RunnerFeatures::SHOW_TIME> runnerRam;
+    Runner<NaiveAlgorithm, RunnerFeatures::SHOW_TIME, 10> runnerNaive;
+    Runner<RamAlgorithm, RunnerFeatures::SHOW_TIME, 10> runnerRam;
 
     std::ofstream ostrNaive("output_naive.txt");
     std::ofstream ostrRam("output_ram.txt");
