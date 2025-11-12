@@ -19,7 +19,10 @@ public:
     }
 
     void addEdge(const Graph::Edge& e) {
-        mDsu.merge(mDsu.get(e.first), mDsu.get(e.second));
+        size_t n1 = mDsu.get(e.first);
+        size_t n2 = mDsu.get(e.second);
+
+        mDsu.merge(n1, n2);
     }
 
     void run(const Graph& g) {

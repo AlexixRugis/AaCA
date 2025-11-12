@@ -55,8 +55,10 @@ def run_experiment(name: str, m_func) -> Tuple[List[int], List[float], List[floa
         try:
             naive, ram = run_test_program(EXE_PATH_TESTS, n, m)
             n_vals.append(n)
-            t_naive.append(naive)
-            t_ram.append(ram)
+            t_naive.append(naive / max(1, (n * m)))
+            #t_naive.append(naive)
+            t_ram.append(ram / max(1, (n * m)))
+            #t_ram.append(ram)
             print(f"{name}: n={n}, m={m}, T_A={naive:.6f}, T_B={ram:.6f}")
         except Exception as e:
             print(f"Ошибка при n={n}, m={m}: {e}")
@@ -115,9 +117,9 @@ def experiment_4():
     plot_results(n_vals, "Кол-во вершин (N)", {'N_E (edges)': n_edges,}, "e4: one comp")
 
 def main():
-    #experiment_1()
-    #experiment_2()
-    #experiment_3()
+    experiment_1()
+    experiment_2()
+    experiment_3()
     experiment_4()
     
 if __name__ == '__main__':
